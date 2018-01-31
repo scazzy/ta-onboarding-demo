@@ -1,0 +1,203 @@
+<!DOCTYPE html><html><head><title>Convergence India 2018 - About</title><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><link rel="stylesheet" type="text/css" href="../css/styles-1482222229069.min.css"><script type="text/javascript">
+        ! function(e) {
+            if ("object" == typeof exports && "undefined" != typeof module) module.exports = e();
+            else if ("function" == typeof define && define.amd) define([], e);
+            else {
+                var n;
+                n = "undefined" != typeof window ? window : "undefined" != typeof global ? global : "undefined" != typeof self ? self : this, n.flock = e()
+            }
+        }(function() {
+            return function e(n, r, t) {
+                function o(a, f) {
+                    if (!r[a]) {
+                        if (!n[a]) {
+                            var u = "function" == typeof require && require;
+                            if (!f && u) return u(a, !0);
+                            if (i) return i(a, !0);
+                            var c = new Error("Cannot find module '" + a + "'");
+                            throw c.code = "MODULE_NOT_FOUND", c
+                        }
+                        var l = r[a] = {
+                            exports: {}
+                        };
+                        n[a][0].call(l.exports, function(e) {
+                            var r = n[a][1][e];
+                            return o(r ? r : e)
+                        }, l, l.exports, e, n, r, t)
+                    }
+                    return r[a].exports
+                }
+                for (var i = "function" == typeof require && require, a = 0; a < t.length; a++) o(t[a]);
+                return o
+            }({
+                1: [function(e, n, r) {
+                    r.create = function(e, n, r) {
+                        if (r) {
+                            var t = new Date;
+                            t.setTime(t.getTime() + 24 * r * 60 * 60 * 1e3);
+                            var o = "; expires=" + t.toGMTString()
+                        } else var o = "";
+                        document.cookie = e + "=" + n + o + "; path=/"
+                    }, r.read = function(e) {
+                        for (var n = e + "=", r = document.cookie.split(";"), t = 0; t < r.length; t++) {
+                            for (var o = r[t];
+                                " " == o.charAt(0);) o = o.substring(1, o.length);
+                            if (0 == o.indexOf(n)) return o.substring(n.length, o.length)
+                        }
+                        return null
+                    }, r.erase = function(e) {
+                        r.create(e, "", -1)
+                    }
+                }, {}],
+                2: [function(e, n, r) {
+                    var t = e("./cookie.js"),
+                        o = e("./query.js"),
+                        i = {
+                            CLIENT: "flockClient",
+                            CLAIM_TOKEN: "flockClaimToken"
+                        },
+                        a = function(e) {
+                            return o.parameter(e) || t.read(e)
+                        },
+                        f = r.post = function(e, n) {
+                            var r = {
+                                    name: e,
+                                    payload: n,
+                                    claim_token: a(i.CLAIM_TOKEN) || ""
+                                },
+                                t = a(i.CLIENT);
+                            if ("iOS" === t || "android" == t) {
+                                var o = JSON.stringify(r),
+                                    f = "flockback://localhost/send?message=" + encodeURIComponent(o);
+                                return iframe = document.createElement("iframe"), iframe.width = iframe.height = 0, iframe.tabIndex = -1, iframe.style = "display: none", iframe.src = f, document.body.appendChild(iframe), iframe.parentNode.removeChild(iframe), iframe = null, !0
+                            }
+                            if ("desktop" == t) {
+                                var u = null;
+                                return window.parent !== window ? u = window.parent : window.opener && (u = window.opener), u ? (u.postMessage(r, "*"), !0) : !1
+                            }
+                            return !1
+                        },
+                        u = {
+                            OPEN_WIDGET: "openWidget",
+                            OPEN_BROWSER: "openBrowser",
+                            CLOSE: "close"
+                        },
+                        c = r.widget = {
+                            MODAL: "modal",
+                            SIDEBAR: "sidebar",
+                            ATTACHMENT: "attachment"
+                        };
+                    r.openWidget = function(e, n, r) {
+                        return f(u.OPEN_WIDGET, {
+                            url: e,
+                            desktopType: n,
+                            mobileType: r || c.MODAL
+                        })
+                    }, r.openBrowser = function(e, n) {
+                        return f(u.OPEN_BROWSER, {
+                            url: e,
+                            sendContext: n || !1
+                        })
+                    }, r.close = function() {
+                        return f(u.CLOSE, null)
+                    }, r.clientInfo = function() {
+                        return {
+                            client: a(i.CLIENT),
+                            claimToken: a(i.CLAIM_TOKEN)
+                        }
+                    };
+                    var l = function() {
+                        var e = function(e) {
+                            var n = o.parameter(e);
+                            n && t.create(e, n)
+                        };
+                        e(i.CLIENT), e(i.CLAIM_TOKEN)
+                    };
+                    l()
+                }, {
+                    "./cookie.js": 1,
+                    "./query.js": 3
+                }],
+                3: [function(e, n, r) {
+                    var t = function() {
+                        var e = null;
+                        return function() {
+                            if (null !== e) return e;
+                            var n, r = /\+/g,
+                                t = /([^&=]+)=?([^&]*)/g,
+                                o = function(e) {
+                                    return decodeURIComponent(e.replace(r, " "))
+                                },
+                                i = window.location.search.substring(1);
+                            for (e = {}; n = t.exec(i);) e[o(n[1])] = o(n[2]);
+                            return e
+                        }
+                    }();
+                    r.parameter = function(e) {
+                        return t()[e]
+                    }
+                }, {}]
+            }, {}, [2])(2)
+        });
+        //# sourceMappingURL=flock.js.map
+
+        function openSponsorWebsite(link) {
+            flock.openBrowser(link, false);
+        }
+    </script></head><body><div class="webview_header" style="position:fixed;top:0px;width:100%;"><a href="./index.html"><img class="back_icon" src="https://apps-static.flock.co/gaggle/nbw/11_Back_Black.png" /></a><label>Convergence India 2017</label></div><div class="container" style="padding-top:51px;"><div class="header-banner"><img class="height_auto" src="../img/logo/convergence-india-2017.jpg" alt="Convergence_logo"></div><div class="items unplugged" style="padding:2px 16px;"><h2>Convergence India 2017</h2><div class="about_event"><p>Exhibitions India Group organized the 25th Convergence India 2017 from 8th - 10th Feb 2017 at Pragati Maidan , New Delhi India ,This exhibition provided an excellent opportunity to showcase the latest products, solutions and technologies in the ICT industry. This B-2-B interface served as an ideal platform for experts to share industry insights on ICT verticals including Telecom, Broadcast, Cable TV, Digital media, Satellite, Smart devices, IT, IoT, Cloud Computing and more.</p>
+<p style="margin-top:14px;">The ICT ecosystem is expanding rapidly, with endless innovation and new applications of technology. From the convergence of broadcast technology with telecom, IT, and digital media platforms to contactless payments and augmented reality to connected cities technology is changing everything around us.</p>
+</div><div class="container unpluggd"><div class="sponsor_header"><h2 style="font-size:22px;padding-bottom:20px;">Speakers 2017</h2></div><div class="speaker_ul" style="padding-bottom:20px;border-bottom:1px solid black;">
+        <div class="speaker_li" style="margin:0px auto;">
+        <img src="../img/speakers/2017/128AdamWeinberg.jpg" style="height:125px;max-height:125px;"/>
+        <p>Adam Weinberg</p>
+        <p>VP-Business Development, Ayecka Communications Systems</p>
+        </div>
+        <div class="speaker_li" style="border-bottom:0px;">
+        <img src="../img/speakers/2017/106AjithNair.jpg" style="height:125px;max-height:125px;" />
+        <p>Ajith Nair</p>
+        <p>CTO, Xperio Labs</p>
+        </div>
+    <div><a href="javascript:" onclick="javascript:flock.openBrowser('http://www.convergenceindia.org/speakers.aspx' );" style="margin: 0;text-decoration: none;padding: 15px 25px;font-size: 16px;font-family: 'Open Sans',Arial,Helvetica,sans-serif; color: #fff; background: #0abe51; display: inline-block;">and many more...</a></div>
+    </div><div class="sponsor_header"><h2 style="font-size:22px;padding-bottom:20px;">Participants 2017</h2></div><div class="speaker_ul" style="padding-bottom:20px;border-bottom:1px solid black;">
+        <div class="speaker_li" style="margin:0px auto;border-bottom:0px;padding:0px;">
+        <p>ABV International, Singapore</p>
+        <p>www.abvtc.com</p>
+        </div>
+        <div class="speaker_li" style="border-bottom:0px;padding:0px;">
+        <p>Albedo Telecom, Spain</p>
+        <p>www.albedotelecom.com</p>
+        </div>
+    <div class="speaker_li" style="border-bottom:0px;padding:0px;">
+        <p>Cisco, India</p>
+        <p>www.cisco.com</p>
+        </div>
+    <div class="speaker_li" style="border-bottom:0px;padding:0px;">
+        <p>COAI, India</p>
+        <p>www.coai.com</p>
+        </div>
+    <div class="speaker_li" style="border-bottom:0px;padding:0px;">
+        <p>DIGISOL Systems Ltd., India</p>
+        <p>www.digisol.com</p>
+        </div>
+    <div><a href="javascript:" onclick="javascript:flock.openBrowser('http://www.convergenceindia.org/exhibitors-and-participants-convergence-india.aspx' );" style="margin: 0;text-decoration: none;padding: 15px 25px;font-size: 16px;font-family: 'Open Sans',Arial,Helvetica,sans-serif; color: #fff; background: #0abe51; display: inline-block;">List of Participants - 2017</a></div>
+    </div>
+    <div class="sponsor_header"><h2 style="font-size:22px;padding-bottom:20px;">Support</h2></div><div><img src="../img/sponsors/2017/25th-Convergence-India-2017-Support.jpg" style="width:100%;height:auto;max-height:125px;"/></div><div class="sponsor_header" style="display:block;text-align:center;"><h2 style="font-size:22px;padding-bottom:20px;text-align:center;">Partner</h2></div><div style="display:block;text-align:center;"><img src="../img/sponsors/2017/25th-Convergence-India-2017-partner.jpg" style="width:auto;height:auto;max-height:125px;"/></div><div class="sponsor_header"><h2 style="font-size:22px;padding:0px 30px 20px;">Organized by</h2></div><div style="border-bottom:1px solid black;display:block;text-align:center;"><img src="../img/sponsors/2017/Exhibitions-India-Group.jpg" style="width:auto;height:auto;max-height:125px;"/></div><div style="padding-top:20px;"><a href="javascript:" onclick="javascript:flock.openBrowser('https://convergenceindia.pixieset.com/25thconvergenceindia2017expo-08-10february2017pragatimaidannewdelhi/');"><img src="../img/logo/photogallery-2018.jpg" style="width:150px;"/></a></div><div class="container unpluggd"><div class="sponsor_header"><h2 style="font-size:22px;padding-bottom:20px;">Press Releases</h2></div><div class="speaker_ul" style="padding-bottom:20px;border-bottom:1px solid black;">
+        <div class="speaker_li" style="margin:0px auto;">
+        <a href="javascript:" onclick="javascript:flock.openBrowser('http://www.convergenceindia.org/25th-Convergence-India-2017-and-IoT-India-expo-2017-Day-1-Press-Release.html' );" style="font-size:16px;">Convergence India 2018 promises to make India's digital dream a reality</a>
+        <p style="font-size:15px;padding-top:10px;">New Delhi, 08th February 2017</p>
+        </div><div class="speaker_li" style="margin:0px auto;padding-top:10px;">
+        <a href="javascript:" onclick="javascript:flock.openBrowser('http://www.convergenceindia.org/25th-Convergence-India-2017-and-IoT-India-expo-2017-Day-2-Press-Release.html' );" style="font-size:16px;">Convergence India 2018: Hi-tech showcase offers a glimpse into the future</a>
+    <p style="font-size:15px;padding-top:10px;">New Delhi, 09th February 2017</p></div>
+    <div class="speaker_li" style="margin:0px auto;padding-top:10px;">
+        <a href="javascript:" onclick="javascript:flock.openBrowser('http://www.convergenceindia.org/25th-Convergence-India-2017-and-IoT-India-expo-2017-Day-3-Press-Release.html' );" style="font-size:16px;">Connectivity rules at Convergence India 2018</a>
+        <p style="font-size:15px;padding-top:10px;">New Delhi, 10th February 2017</p>
+        </div>
+    <div class="speaker_li" style="margin:0px auto;padding-top:25px;">
+        <a href="javascript:" onclick="javascript:flock.openBrowser('http://www.convergenceindia.org/post-show-report-2017/mobile/index.html#p=6' );" style="font-size:16px;">2017 Post Show Report</a>
+        </div>
+    </div></div><div class="items unplugged" align="center">
+            <a href="javascript:" onclick="javascript:flock.openBrowser('http://www.convergenceindia.org/');" style="text-decoration:none"><img alt="Website" src="../img/footer_web.png" style="margin:5px;width: 30px"></a>
+            <a href="javascript:" onclick="javascript:flock.openBrowser('https://twitter.com/Convergenc');" style="text-decoration:none"><img alt="Twitter" src="../img/footer_twitter.png" style="margin:5px;width: 30px"></a>
+            <a href="javascript:" onclick="javascript:flock.openBrowser('https://www.facebook.com/ConvergenceIndia?ref=hl');" style="text-decoration:none"><img alt="Facebook" src="../img/footer_facebook.png" style="margin:5px;width: 30px"></a>
+            <a href="javascript:" onclick="javascript:flock.openBrowser('http://www.linkedin.com/pub/convergence-india-convergenceindia-eigroup-in/20/579/433');" style="text-decoration:none"><img alt="Linkedin" src="../img/footer_linkedin.png" style="margin:5px;width: 30px"></a>
+        </div></div></div></div><script type="text/javascript" src="../js/script-1482222229069.min.js" async></script></body></html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html><html><head><title>BFSI CYBER SECURITY SYMPOSIUM - About</title><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><link rel="stylesheet" type="text/css" href="../css/styles-1482222229069.min.css"><script type="text/javascript">
+        ! function(e) {
+            if ("object" == typeof exports && "undefined" != typeof module) module.exports = e();
+            else if ("function" == typeof define && define.amd) define([], e);
+            else {
+                var n;
+                n = "undefined" != typeof window ? window : "undefined" != typeof global ? global : "undefined" != typeof self ? self : this, n.flock = e()
+            }
+        }(function() {
+            return function e(n, r, t) {
+                function o(a, f) {
+                    if (!r[a]) {
+                        if (!n[a]) {
+                            var u = "function" == typeof require && require;
+                            if (!f && u) return u(a, !0);
+                            if (i) return i(a, !0);
+                            var c = new Error("Cannot find module '" + a + "'");
+                            throw c.code = "MODULE_NOT_FOUND", c
+                        }
+                        var l = r[a] = {
+                            exports: {}
+                        };
+                        n[a][0].call(l.exports, function(e) {
+                            var r = n[a][1][e];
+                            return o(r ? r : e)
+                        }, l, l.exports, e, n, r, t)
+                    }
+                    return r[a].exports
+                }
+                for (var i = "function" == typeof require && require, a = 0; a < t.length; a++) o(t[a]);
+                return o
+            }({
+                1: [function(e, n, r) {
+                    r.create = function(e, n, r) {
+                        if (r) {
+                            var t = new Date;
+                            t.setTime(t.getTime() + 24 * r * 60 * 60 * 1e3);
+                            var o = "; expires=" + t.toGMTString()
+                        } else var o = "";
+                        document.cookie = e + "=" + n + o + "; path=/"
+                    }, r.read = function(e) {
+                        for (var n = e + "=", r = document.cookie.split(";"), t = 0; t < r.length; t++) {
+                            for (var o = r[t];
+                                " " == o.charAt(0);) o = o.substring(1, o.length);
+                            if (0 == o.indexOf(n)) return o.substring(n.length, o.length)
+                        }
+                        return null
+                    }, r.erase = function(e) {
+                        r.create(e, "", -1)
+                    }
+                }, {}],
+                2: [function(e, n, r) {
+                    var t = e("./cookie.js"),
+                        o = e("./query.js"),
+                        i = {
+                            CLIENT: "flockClient",
+                            CLAIM_TOKEN: "flockClaimToken"
+                        },
+                        a = function(e) {
+                            return o.parameter(e) || t.read(e)
+                        },
+                        f = r.post = function(e, n) {
+                            var r = {
+                                    name: e,
+                                    payload: n,
+                                    claim_token: a(i.CLAIM_TOKEN) || ""
+                                },
+                                t = a(i.CLIENT);
+                            if ("iOS" === t || "android" == t) {
+                                var o = JSON.stringify(r),
+                                    f = "flockback://localhost/send?message=" + encodeURIComponent(o);
+                                return iframe = document.createElement("iframe"), iframe.width = iframe.height = 0, iframe.tabIndex = -1, iframe.style = "display: none", iframe.src = f, document.body.appendChild(iframe), iframe.parentNode.removeChild(iframe), iframe = null, !0
+                            }
+                            if ("desktop" == t) {
+                                var u = null;
+                                return window.parent !== window ? u = window.parent : window.opener && (u = window.opener), u ? (u.postMessage(r, "*"), !0) : !1
+                            }
+                            return !1
+                        },
+                        u = {
+                            OPEN_WIDGET: "openWidget",
+                            OPEN_BROWSER: "openBrowser",
+                            CLOSE: "close"
+                        },
+                        c = r.widget = {
+                            MODAL: "modal",
+                            SIDEBAR: "sidebar",
+                            ATTACHMENT: "attachment"
+                        };
+                    r.openWidget = function(e, n, r) {
+                        return f(u.OPEN_WIDGET, {
+                            url: e,
+                            desktopType: n,
+                            mobileType: r || c.MODAL
+                        })
+                    }, r.openBrowser = function(e, n) {
+                        return f(u.OPEN_BROWSER, {
+                            url: e,
+                            sendContext: n || !1
+                        })
+                    }, r.close = function() {
+                        return f(u.CLOSE, null)
+                    }, r.clientInfo = function() {
+                        return {
+                            client: a(i.CLIENT),
+                            claimToken: a(i.CLAIM_TOKEN)
+                        }
+                    };
+                    var l = function() {
+                        var e = function(e) {
+                            var n = o.parameter(e);
+                            n && t.create(e, n)
+                        };
+                        e(i.CLIENT), e(i.CLAIM_TOKEN)
+                    };
+                    l()
+                }, {
+                    "./cookie.js": 1,
+                    "./query.js": 3
+                }],
+                3: [function(e, n, r) {
+                    var t = function() {
+                        var e = null;
+                        return function() {
+                            if (null !== e) return e;
+                            var n, r = /\+/g,
+                                t = /([^&=]+)=?([^&]*)/g,
+                                o = function(e) {
+                                    return decodeURIComponent(e.replace(r, " "))
+                                },
+                                i = window.location.search.substring(1);
+                            for (e = {}; n = t.exec(i);) e[o(n[1])] = o(n[2]);
+                            return e
+                        }
+                    }();
+                    r.parameter = function(e) {
+                        return t()[e]
+                    }
+                }, {}]
+            }, {}, [2])(2)
+        });
+        //# sourceMappingURL=flock.js.map
+
+        function openSponsorWebsite(link) {
+            flock.openBrowser(link, false);
+        }
+    </script></head><body><div class="webview_header" style="position:fixed;top:0px;width:100%;"><a href="./index.html"><img class="back_icon" src="https://apps-static.flock.co/gaggle/nbw/11_Back_Black.png" /></a><label style="padding-left:0px;">BFSI CYBER SECURITY SYMPOSIUM</label></div><div class="container" style="padding-top:51px;"><div class="header-banner"><img class="height_auto" src="../img/speakers/Balaji-Venkateshwar.jpg" alt="Convergence_logo" style="width:100%;"></div><div class="items unplugged" style="padding:2px 16px;"><h2>About your Workshop Leader</h2><h2>Balaji Venkateshwar</h2><div class="about_event">
+    <p>Balaji Venkateshwar is a Cyber Security Researcher with more than 25 years of experience and expertise in Security Analytics based improvised Security Posturing Hacking & Cyber Defense. He has innovated multiple solutions & created de-novo framework to raise the bar of Cyber Security control and with “two Global Patents” granted, 5 filed & “One Trade Secret”.</p>
+    <p style="margin-top:14px;">He is adept at executing smarter decisions in climates of considerable risk with ever bulging threat matrix for ensuring proactive cyber defense posturing Currently, he is on Advance Study on Cyber Security & use of simulator with an internationally acclaimed research organization (Confidential).</p>
+    <p style="margin-top:14px;">In his last assignment, he has worked as Executive Director- Cyber Security for PricewaterhouseCoopers (PwC) and worked on India’s Largest Cyber Defense Project as Key Architect & Designer.</p>
+    <p style="margin-top:14px;">Balaji has also worked for State Bank of India, India’s largest Bank, Wipro as Head (Risk Management & Compliance), Bank of America as Vice President (Global Information Security) for Global Delivery Center & CISO (India) and Secure Matrix, a start-up in Cyber Security Research as Chief Executive Officer.</p>
+    <p style="margin-top:14px;">In order to contribute to Cyber Security Ecosystem, Resilience plans and Policy Formulation at international and National level, Balaji represents following Committees:
+    <ul>
+    <li style="text-align:left;font-size:15px;">Member Advisory Board for Global Cyberlympics</li>
+    <li style="text-align:left;font-size:15px;padding-top:15px;">Member of the CII National Committee on Telecom & Broadband</li>
+    <li style="text-align:left;font-size:15px;padding-top:15px;">Co-Chair of CII National Sub-Committee on Cyber Security</li>
+    </ul>
+    </div></div>
+</div><script type="text/javascript" src="../js/script-1482222229069.min.js" async></script></body></html>
